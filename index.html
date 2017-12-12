@@ -150,6 +150,13 @@ trafficload.addTo(mymap)
 
 var bounds = trafficload.getBounds(); // [1]
 mymap.fitBounds(bounds); // [2]
+  
+  var overlayMaps = {
+  "MaintenanceZones" : trafficload
+}
+
+
+L.control.layers(null, overlayMaps).addTo(mymap);
 
 var roadMaintenance = L.geoJSON(maintenance.responseJSON, {
   style: function(feature) {
