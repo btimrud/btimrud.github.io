@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<title>Vermont Map</title>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+      <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+      integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+      crossorigin=""></script> -->
+
+ <script src="https://rawgit.com/dwilhelm89/LeafletSlider/master/SliderControl.js" type="text/javascript"></script>
+
+ <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet' />
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+     <style>
+      button {width: 100px;
+      }
+      html, body {
+  			height: 100%;
+  			margin: 0;
+  		}
+      #mapid {
+          width: 540px;
+          height: 800px;
+          margin: 10px auto 10px auto;
+          background: whitesmoke;
+          border: 2px solid #dddedf;
+      }
+      #title {
+          position: absolute;
+          width: 305px;
+          border: 1px solid black;
+          padding: 8px 15px;
+          margin-top: 10px;
+          margin-left: 15px;
+          color: whitesmoke;
+          font-size: 1.5em;
+          background: rgba(25, 25, 25, 0.8);
+          border-radius: 5px;
+      }
+
+      #title-text {
+          font-size: 0.7em;
+      }
+
+      </style>
+
+         <div class = "w3-center">
+           <div class="w3-bar">
+            <button type="button" id="roadMaintenance" class="w3-button w3-teal">All roads</button>
+             <button type="button" id="roadMaintenanceGood" class="w3-button w3-green">Good</button>
+             <button type="button" id="roadMaintenanceFair" class="w3-button w3-blue">Fair</button>
+             <button type="button" id="roadMaintenancePoor" class="w3-button w3-orange">Poor</button>
+             <button type="button" id="roadMaintenanceVeryPoor" class="w3-button w3-red">Very Poor</button>
+         </div>
+       </div>
+
+
+
+</head>
+  <body>
+    <div id="title">Condition of Vermont Roads
+        <br>
+        <p id='title-text'>This map shows the current state of Vermont roads as provided by the Vermont Agency of Transportation</p>
+    </div>
+
+<div  id ="mapid" ></div>
+
+<script>
+// var mapboxAccessToken = {pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A};
+
+
+var maintenance = $.ajax({
+  url:"https://opendata.arcgis.com/datasets/de596e92510245bea0abee98e584e66d_12.geojson",
+  dataType: "json",
+  success: console.log("Data successfully loaded"),
+  error: function (xhr) {
+    alert(xhr.statusText)
+  }
+})
+
+// https://opendata.arcgis.com/datasets/28e70644b9834f7898e2cb2dbbd226b8_50.geojson
+
+var traffic = $.ajax({
+  url:"https://opendata.arcgis.com/datasets/a556d14388e543479d887170d29b9ffd_16.geojson",
+  dataType: "json",
+  success: console.log("Data successfully loaded"),
+  error: function (xhr) {
+    alert(xhr.statusText)
+  }
+})
+
+$.when(maintenance, traffic).done(function() {
+
+// .fitBounds(geojsonLayer.getBounds()).geojsonLayer.addTo(mymap)
+
+ var mymap = L.map('mapid')
+      .setView([44.255993, -72.579878],10)
+
+var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A'
+}).addTo(mymap)
+
+// var marker = L.marker([44.269762, -72.607859]).addTo(mymap)
+//               .bindPopup("This is the capital of Vermont").openPopup()
+//               .openPopup()
+
+// function onMapClick(e) {
+//     alert("You clicked the map at " + e.latlng);
+// }
+//
+// mymap.on('click', onMapClick);
+
+var trafficload = L.geoJSON(traffic.responseJSON, {
+  style: function(feature) {
+      return {weight: 5, fillOpacity: 0, clickable: false, color: "#D2B48C"}
+},
+onEachFeature: function(feature, layer) {
+  layer.bindTooltip(feature.properties.DistrictLongName, {permanent: true}, {opacity: 1}
+    );
+  }
+});
+
+
+trafficload.addTo(mymap)
+
+var bounds = trafficload.getBounds(); // [1]
+mymap.fitBounds(bounds); // [2]
+
+var roadMaintenance = L.geoJSON(maintenance.responseJSON, {
+  style: function(feature) {
+    switch (feature.properties.CONDITION_CATEGORY) {
+      case 'Very Poor': return {color: "#e80a06"};
+      case 'Poor': return {color: "#f49a41"};
+      case 'Fair': return {color: "#4271f4"};
+      case 'Good': return {color: "#118706"};
+  }
+},
+onEachFeature: function(feature, layer) {
+  var popupText = "RouteName: " + feature.properties.RouteName
+  + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
+    layer.bindPopup(popupText); }
+});
+
+
+
+var roadMaintenanceGood = L.geoJSON(maintenance.responseJSON, {
+    filter: function(feature, layer) {
+        return feature.properties.CONDITION_CATEGORY == "Good";
+    },
+    style: function(feature) {
+      switch (feature.properties.CONDITION_CATEGORY) {
+        case 'Very Poor': return {color: "#e80a06"};
+        case 'Poor': return {color: "#f49a41"}
+        case 'Fair': return {color: "#4271f4"}
+        case 'Good': return {color: "#118706"}
+    }
+  },
+  onEachFeature: function(feature, layer) {
+    var popupText = "RouteName: " + feature.properties.RouteName
+    + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
+      layer.bindPopup(popupText); }
+      });
+
+var roadMaintenanceFair = L.geoJSON(maintenance.responseJSON, {
+    filter: function(feature, layer) {
+        return feature.properties.CONDITION_CATEGORY == "Fair";
+    },
+    style: function(feature) {
+      switch (feature.properties.CONDITION_CATEGORY) {
+        case 'Very Poor': return {color: "#e80a06"};
+        case 'Poor': return {color: "#f49a41"}
+        case 'Fair': return {color: "#4271f4"}
+        case 'Good': return {color: "#118706"}
+    }
+  },
+  onEachFeature: function(feature, layer) {
+    var popupText = "RouteName: " + feature.properties.RouteName
+    + "<br>Last worked on in the year: " + feature.properties.LastWork_Year;
+      layer.bindPopup(popupText); }
+      });
+
+var roadMaintenancePoor = L.geoJSON(maintenance.responseJSON, {
+    filter: function(feature, layer) {
+        return feature.properties.CONDITION_CATEGORY == "Poor";
+      },
+      style: function(feature) {
+        switch (feature.properties.CONDITION_CATEGORY) {
+          case 'Very Poor': return {color: "#e80a06"};
+          case 'Poor': return {color: "#f49a41"}
+          case 'Fair': return {color: "#4271f4"}
+          case 'Good': return {color: "#118706"}
+      }
+    },
+    onEachFeature: function(feature, layer) {
+      var popupText = "RouteName: " + feature.properties.RouteName
+      + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
+        layer.bindPopup(popupText); }
+        });
+
+
+var roadMaintenanceVeryPoor = L.geoJSON(maintenance.responseJSON, {
+    filter: function(feature, layer) {
+        return feature.properties.CONDITION_CATEGORY == "Very Poor";
+    },
+    style: function(feature) {
+      switch (feature.properties.CONDITION_CATEGORY) {
+        case 'Very Poor': return {color: "#e80a06"};
+        case 'Poor': return {color: "#f49a41"}
+        case 'Fair': return {color: "#4271f4"}
+        case 'Good': return {color: "#118706"}
+    }
+  },
+    onEachFeature: function(feature, layer) {
+      var popupText = "RouteName: " + feature.properties.RouteName
+      + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
+        layer.bindPopup(popupText); }
+        });
+
+roadMaintenanceGood.addTo(mymap)
+roadMaintenanceFair.addTo(mymap)
+roadMaintenancePoor.addTo(mymap)
+roadMaintenanceVeryPoor.addTo(mymap)
+roadMaintenance.addTo(mymap)
+
+ // Toggle layers according to button function
+
+ $("#roadMaintenance").click(function() {
+     mymap.addLayer(roadMaintenance)
+     mymap.removeLayer(roadMaintenanceGood)
+     mymap.removeLayer(roadMaintenanceFair)
+     mymap.removeLayer(roadMaintenancePoor)
+     mymap.removeLayer(roadMaintenanceVeryPoor)
+ });
+
+ $("#roadMaintenanceGood").click(function() {
+     mymap.addLayer(roadMaintenanceGood)
+     mymap.removeLayer(roadMaintenanceFair)
+     mymap.removeLayer(roadMaintenancePoor)
+     mymap.removeLayer(roadMaintenanceVeryPoor)
+     mymap.removeLayer(roadMaintenance)
+ });
+ $("#roadMaintenanceFair").click(function() {
+   mymap.addLayer(roadMaintenanceFair)
+   mymap.removeLayer(roadMaintenanceGood)
+   mymap.removeLayer(roadMaintenancePoor)
+   mymap.removeLayer(roadMaintenanceVeryPoor)
+   mymap.removeLayer(roadMaintenance)
+ });
+ $("#roadMaintenancePoor").click(function() {
+  mymap.addLayer(roadMaintenancePoor)
+  mymap.removeLayer(roadMaintenanceFair)
+   mymap.removeLayer(roadMaintenanceGood)
+   mymap.removeLayer(roadMaintenanceVeryPoor)
+   mymap.removeLayer(roadMaintenance)
+ });
+
+ $("#roadMaintenanceVeryPoor").click(function() {
+   mymap.addLayer(roadMaintenanceVeryPoor)
+   mymap.removeLayer(roadMaintenanceFair)
+  mymap.removeLayer(roadMaintenancePoor)
+   mymap.removeLayer(roadMaintenanceGood)
+   mymap.removeLayer(roadMaintenance)
+ });
+
+});
+
+// var layerGroup = L.layerGroup([roadMaintenancePoor, roadMaintenanceVeryPoor, roadMaintenanceFair, roadMaintenanceGood])
+//
+// layerGroup.addTo(mymap)
+
+
+</script>
+
+
+
+  </body>
+
+
+
+
+</html>
