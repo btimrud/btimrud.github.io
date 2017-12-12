@@ -15,15 +15,15 @@
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-      <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script>
+      <!-- <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
       integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-      crossorigin=""></script> -->
+      crossorigin=""></script>
 
  <script src="https://rawgit.com/dwilhelm89/LeafletSlider/master/SliderControl.js" type="text/javascript"></script>
 
@@ -36,10 +36,14 @@
      <style>
       button {width: 100px;
       }
-      html, body {
-  			height: 100%;
-  			margin: 0;
-  		}
+      body {
+        padding: 0;
+        margin: 0;
+    }
+    html, body, #map {
+        height: 100%;
+        width: 100vw;
+    }
       #mapid {
           width: 540px;
           height: 800px;
@@ -63,6 +67,35 @@
       #title-text {
           font-size: 0.7em;
       }
+      .leaflet-tooltip {
+      	position: absolute;
+      	padding: 6px;
+      	background-color: #fff;
+      	border: 1px solid #fff;
+      	border-radius: 3px;
+      	color: #222;
+      	white-space: nowrap;
+      	-webkit-user-select: none;
+      	-moz-user-select: none;
+      	-ms-user-select: none;
+      	user-select: none;
+      	pointer-events: none;
+      	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      	}
+      .leaflet-tooltip.leaflet-clickable {
+      	cursor: pointer;
+      	pointer-events: auto;
+      	}
+      .leaflet-tooltip-top:before,
+      .leaflet-tooltip-bottom:before,
+      .leaflet-tooltip-left:before,
+      .leaflet-tooltip-right:before {
+      	position: absolute;
+      	pointer-events: none;
+      	border: 6px solid transparent;
+      	background: transparent;
+      	content: "";
+      	}
 
       </style>
 
@@ -125,6 +158,8 @@ var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?a
     accessToken: 'pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A'
 }).addTo(mymap)
 
+L.control.scale().addTo(mymap);
+
 // var marker = L.marker([44.269762, -72.607859]).addTo(mymap)
 //               .bindPopup("This is the capital of Vermont").openPopup()
 //               .openPopup()
@@ -140,7 +175,7 @@ var trafficload = L.geoJSON(traffic.responseJSON, {
       return {weight: 5, fillOpacity: 0, clickable: false, color: "#D2B48C"}
 },
 onEachFeature: function(feature, layer) {
-  layer.bindTooltip(feature.properties.DistrictLongName, {permanent: true}, {opacity: 1}
+  layer.bindTooltip(feature.properties.DistrictLongName, {permanent: true}
     );
   }
 });
@@ -150,8 +185,8 @@ trafficload.addTo(mymap)
 
 var bounds = trafficload.getBounds(); // [1]
 mymap.fitBounds(bounds); // [2]
-  
-  var overlayMaps = {
+
+var overlayMaps = {
   "MaintenanceZones" : trafficload
 }
 
