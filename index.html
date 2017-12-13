@@ -145,7 +145,7 @@ var maintenancezones = L.geoJSON(traffic.responseJSON, {
       return {weight: 5, fillOpacity: 0, clickable: false, color: "#D2B48C"}
 },
 onEachFeature: function(feature, layer) {
-  layer.bindTooltip(feature.properties.DistrictLongName, {permanent: true}
+  layer.bindTooltip(feature.properties.DistrictLongName, {permanent: true, direction: "center"}
     );
   }
 });
