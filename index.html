@@ -123,6 +123,9 @@
   </div>
 
   <script>
+
+    // Fetch geoJSON data from external sources with jquery and ajax
+
     var maintenance = $.ajax({
       url: "https://opendata.arcgis.com/datasets/de596e92510245bea0abee98e584e66d_12.geojson",
       dataType: "json",
@@ -131,8 +134,6 @@
         alert(xhr.statusText)
       }
     })
-
-    // https://opendata.arcgis.com/datasets/28e70644b9834f7898e2cb2dbbd226b8_50.geojson
 
     var traffic = $.ajax({
       url: "https://opendata.arcgis.com/datasets/a556d14388e543479d887170d29b9ffd_16.geojson",
@@ -143,7 +144,11 @@
       }
     })
 
+    // When the data is sucessfully grabbed, execute map creation
+
     $.when(maintenance, traffic).done(function() {
+
+      // Initialize map
 
       var mymap = L.map('mapid', {
           maxBounds: [
@@ -155,18 +160,23 @@
         })
         .setView([44.255993, -72.579878], 10)
 
+      // Create custom zoom in and out buttons
+
       $('#in').click(function() {
         mymap.setZoom(mymap.getZoom() + 1)
       });
 
 
-      // zoom out function
+
       $('#out').click(function() {
         mymap.setZoom(mymap.getZoom() - 1)
       });
 
+      // Remove default zoom buttons
+
       mymap.removeControl(mymap.zoomControl);
 
+      // Add tilelayer to map
 
       var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href = "http://geodata.vermont.gov/">Vermont Geodata Portal</a>, <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -174,16 +184,16 @@
         accessToken: 'pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A'
       }).addTo(mymap)
 
+      // Add scale option to map
+
       L.control.scale().addTo(mymap);
+
+      // Add selectable marker for capital of Vermont
 
       var marker = L.marker([44.262482, -72.580583]).addTo(mymap)
         .bindPopup("Montpelier, Vermont")
 
-      // function onMapClick(e) {
-      //     alert("You clicked the map at " + e.latlng);
-      // }
-      //
-      // mymap.on('click', onMapClick);
+      // Create and style maintenance zone layer from geoJSON
 
       var maintenancezones = L.geoJSON(traffic.responseJSON, {
         style: function(feature) {
@@ -202,8 +212,11 @@
         }
       });
 
+      // Add first layer to map
 
       maintenancezones.addTo(mymap)
+
+      // Create map control for toggling maintenance zones layer
 
       var overlayMaps = {
         "MaintenanceZones": maintenancezones
@@ -211,6 +224,9 @@
 
 
       L.control.layers(null, overlayMaps).addTo(mymap);
+
+      // Create additional layers from road condition geoJSON
+      // and filter as well as style according to road condition
 
       var roadMaintenance = L.geoJSON(maintenance.responseJSON, {
         style: function(feature) {
@@ -366,6 +382,8 @@
           layer.bindTooltip(popupText);
         }
       });
+
+      //Add layers to the map
 
       roadMaintenanceGood.addTo(mymap)
       roadMaintenanceFair.addTo(mymap)
