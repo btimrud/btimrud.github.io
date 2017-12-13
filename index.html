@@ -132,8 +132,7 @@ var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?a
 L.control.scale().addTo(mymap);
 
 var marker = L.marker([44.262482, -72.580583]).addTo(mymap)
-              .bindPopup("Montpelier, Vermont").openPopup()
-              .openPopup()
+              .bindPopup("Montpelier, Vermont")
 
 // function onMapClick(e) {
 //     alert("You clicked the map at " + e.latlng);
