@@ -9,95 +9,66 @@
 
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-  crossorigin=""/>
+integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+crossorigin=""/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-      <!-- <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script> -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-      integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-      crossorigin=""></script>
-
- <script src="https://rawgit.com/dwilhelm89/LeafletSlider/master/SliderControl.js" type="text/javascript"></script>
-
- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet' />
-
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
-     <style>
-      button {width: 100px;
-      }
-      body {
-        padding: 0;
-        margin: 0;
-    }
-    html, body, #map {
-        height: 100%;
-        width: 100vw;
-    }
-      #mapid {
-          width: 540px;
-          height: 800px;
-          margin: 10px auto 10px auto;
-          background: whitesmoke;
-          border: 2px solid #dddedf;
-      }
-      #title {
-          position: absolute;
-          width: 305px;
-          border: 1px solid black;
-          padding: 8px 15px;
-          margin-top: 10px;
-          margin-left: 15px;
-          color: whitesmoke;
-          font-size: 1.5em;
-          background: rgba(25, 25, 25, 0.8);
-          border-radius: 5px;
-      }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-      #title-text {
-          font-size: 0.7em;
-      }
-      .leaflet-tooltip {
-      	position: absolute;
-      	padding: 6px;
-      	background-color: #fff;
-      	border: 1px solid #fff;
-      	border-radius: 3px;
-      	color: #222;
-      	white-space: nowrap;
-      	-webkit-user-select: none;
-      	-moz-user-select: none;
-      	-ms-user-select: none;
-      	user-select: none;
-      	pointer-events: none;
-      	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-      	}
-      .leaflet-tooltip.leaflet-clickable {
-      	cursor: pointer;
-      	pointer-events: auto;
-      	}
-      .leaflet-tooltip-top:before,
-      .leaflet-tooltip-bottom:before,
-      .leaflet-tooltip-left:before,
-      .leaflet-tooltip-right:before {
-      	position: absolute;
-      	pointer-events: none;
-      	border: 6px solid transparent;
-      	background: transparent;
-      	content: "";
-      	}
 
-      </style>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+crossorigin=""></script>
+
+
+<!-- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet' /> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+<!-- <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script> -->
+<!-- <script src="https://rawgit.com/dwilhelm89/LeafletSlider/master/SliderControl.js" type="text/javascript"></script> -->
+
+
+<style>
+  button {width: 100px;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  html, body, #map {
+    height: 100%;
+    width: 100vw;
+  }
+  #mapid {
+    width: 540px;
+    height: 800px;
+    margin: 10px auto 10px auto;
+    background: whitesmoke;
+    border: 2px solid #dddedf;
+  }
+  #title {
+    position: absolute;
+    width: 305px;
+    border: 1px solid black;
+    padding: 8px 15px;
+    margin-top: 10px;
+    margin-left: 15px;
+    color: whitesmoke;
+    font-size: 1.5em;
+    background: rgba(25, 25, 25, 0.8);
+    border-radius: 5px;
+  }
+
+  #title-text {
+    font-size: 0.7em;
+  }
+
+</style>
 
          <div class = "w3-center">
            <div class="w3-bar">
@@ -118,11 +89,9 @@
         <p id='title-text'>This map shows the current state of Vermont roads as provided by the Vermont Agency of Transportation</p>
     </div>
 
-<div  id ="mapid" ></div>
+    <div  id ="mapid" ></div>
 
 <script>
-// var mapboxAccessToken = {pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A};
-
 
 var maintenance = $.ajax({
   url:"https://opendata.arcgis.com/datasets/de596e92510245bea0abee98e584e66d_12.geojson",
@@ -146,23 +115,25 @@ var traffic = $.ajax({
 
 $.when(maintenance, traffic).done(function() {
 
-// .fitBounds(geojsonLayer.getBounds()).geojsonLayer.addTo(mymap)
-
- var mymap = L.map('mapid')
+ var mymap = L.map('mapid', {maxBounds: [
+        //south west
+        [42.510105, -73.783247],
+        //north east
+        [45.387538, -71.469208]
+      ] })
       .setView([44.255993, -72.579878],10)
 
 var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiYnJldHQyMjM3IiwiYSI6ImNqYXd4NXhwdjBya2Uyd3FrNzhlN29jdmcifQ.qjYYNyHVKbFYEOSJfIEG2A'
 }).addTo(mymap)
 
 L.control.scale().addTo(mymap);
 
-// var marker = L.marker([44.269762, -72.607859]).addTo(mymap)
-//               .bindPopup("This is the capital of Vermont").openPopup()
-//               .openPopup()
+var marker = L.marker([44.262482, -72.580583]).addTo(mymap)
+              .bindPopup("Montpelier, Vermont").openPopup()
+              .openPopup()
 
 // function onMapClick(e) {
 //     alert("You clicked the map at " + e.latlng);
@@ -170,7 +141,7 @@ L.control.scale().addTo(mymap);
 //
 // mymap.on('click', onMapClick);
 
-var trafficload = L.geoJSON(traffic.responseJSON, {
+var maintenancezones = L.geoJSON(traffic.responseJSON, {
   style: function(feature) {
       return {weight: 5, fillOpacity: 0, clickable: false, color: "#D2B48C"}
 },
@@ -181,13 +152,10 @@ onEachFeature: function(feature, layer) {
 });
 
 
-trafficload.addTo(mymap)
-
-var bounds = trafficload.getBounds(); // [1]
-mymap.fitBounds(bounds); // [2]
+maintenancezones.addTo(mymap)
 
 var overlayMaps = {
-  "MaintenanceZones" : trafficload
+  "MaintenanceZones" : maintenancezones
 }
 
 
@@ -205,7 +173,7 @@ var roadMaintenance = L.geoJSON(maintenance.responseJSON, {
 onEachFeature: function(feature, layer) {
   var popupText = "RouteName: " + feature.properties.RouteName
   + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
-    layer.bindPopup(popupText); }
+    layer.bindTooltip(popupText); }
 });
 
 
@@ -225,7 +193,7 @@ var roadMaintenanceGood = L.geoJSON(maintenance.responseJSON, {
   onEachFeature: function(feature, layer) {
     var popupText = "RouteName: " + feature.properties.RouteName
     + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
-      layer.bindPopup(popupText); }
+      layer.bindTooltip(popupText); }
       });
 
 var roadMaintenanceFair = L.geoJSON(maintenance.responseJSON, {
@@ -243,7 +211,7 @@ var roadMaintenanceFair = L.geoJSON(maintenance.responseJSON, {
   onEachFeature: function(feature, layer) {
     var popupText = "RouteName: " + feature.properties.RouteName
     + "<br>Last worked on in the year: " + feature.properties.LastWork_Year;
-      layer.bindPopup(popupText); }
+      layer.bindTooltip(popupText); }
       });
 
 var roadMaintenancePoor = L.geoJSON(maintenance.responseJSON, {
@@ -261,7 +229,7 @@ var roadMaintenancePoor = L.geoJSON(maintenance.responseJSON, {
     onEachFeature: function(feature, layer) {
       var popupText = "RouteName: " + feature.properties.RouteName
       + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
-        layer.bindPopup(popupText); }
+        layer.bindTooltip(popupText); }
         });
 
 
@@ -280,7 +248,7 @@ var roadMaintenanceVeryPoor = L.geoJSON(maintenance.responseJSON, {
     onEachFeature: function(feature, layer) {
       var popupText = "RouteName: " + feature.properties.RouteName
       + "<br>Last worked on in the year: " + feature.properties.LastWork_Year
-        layer.bindPopup(popupText); }
+        layer.bindTooltip(popupText); }
         });
 
 roadMaintenanceGood.addTo(mymap)
@@ -330,10 +298,6 @@ roadMaintenance.addTo(mymap)
  });
 
 });
-
-// var layerGroup = L.layerGroup([roadMaintenancePoor, roadMaintenanceVeryPoor, roadMaintenanceFair, roadMaintenanceGood])
-//
-// layerGroup.addTo(mymap)
 
 
 </script>
