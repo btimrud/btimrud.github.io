@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <title>Vermont Map</title>
 
@@ -21,7 +21,15 @@
 
   <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
 
-    <style>
+
+  <!-- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet' /> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"></script> -->
+  <!-- <script src="https://rawgit.com/dwilhelm89/LeafletSlider/master/SliderControl.js" type="text/javascript"></script> -->
+
+
+  <style>
     button {
       width: 100px;
     }
@@ -71,15 +79,17 @@
       background-image: url("http://taketothehighway.com/wp-content/uploads/2017/10/IMG_2515.jpg");
       /* Full height */
       height: 100%;
-      background-attachment: scroll;
+
       /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 100% 100%;
+      background-size: cover;
     }
 
     }
   </style>
+
+
 
 </head>
 
@@ -91,7 +101,7 @@
     <br>
     <p id='author'>Map created by Brett Timrud using leaflet.js API with w3 and Bootstrap CSS.</p>
   </div>
- 
+
   <div class="bg">
     <div class="w3-center">
       <div class="w3-bar">
@@ -111,7 +121,7 @@
     <button id="in" class="w3-button w3-black">+</button>
     <button id="out" class="w3-button w3-teal">-</button>
   </div>
-  
+
   <script>
 
     // Fetch geoJSON data from external sources with jquery and ajax
@@ -164,7 +174,7 @@
 
       // Remove default zoom buttons
 
-      // mymap.removeControl(mymap.zoomControl);
+      mymap.removeControl(mymap.zoomControl);
 
       // Add tilelayer to map
 
